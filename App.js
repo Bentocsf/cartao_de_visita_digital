@@ -7,6 +7,8 @@ import {
   Pressable,
   Modal,
   TextInput,
+  Switch,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -14,6 +16,7 @@ export default function App() {
   const [bio, setBio] = useState('');
   const [bioTemporaria, setBioTemporaria] = useState('');
   const [modalVisivel, setModalVisivel] = useState(false);
+  const [receberNotificacoes, setReceberNotificacoes] = useState(false);
 
   function abrirModal() {
     setBioTemporaria(bio);
@@ -31,7 +34,7 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <View style={styles.conteudo}>
+        <ScrollView contentContainerStyle={styles.conteudo}>
           <Image
             source={{
               uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUKSFMKaTaRKsmswIUKIqdLsTB3Q46LTRAOw2wHlLF1Q&s=10',
@@ -40,6 +43,7 @@ export default function App() {
           />
 
           <Text style={styles.nome}>Bento Correa Silva Freire</Text>
+
           <View style={styles.bioContainer}>
             <Text style={styles.bioTitulo}>Bio</Text>
 
@@ -51,7 +55,19 @@ export default function App() {
               <Text style={styles.botaoTexto}>Editar Bio</Text>
             </Pressable>
           </View>
-        </View>
+          <View style={styles.configContainer}>
+            <Text style={styles.configTitulo}>Configurações</Text>
+
+            <View style={styles.configLinha}>
+              <Text style={styles.configTexto}>Receber Notificações</Text>
+
+              <Switch
+                value={receberNotificacoes}
+                onValueChange={setReceberNotificacoes}
+              />
+            </View>
+          </View>
+        </ScrollView>
       </SafeAreaView>
       <Modal
         visible={modalVisivel}
@@ -96,9 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ADD8E6',
   },
   conteudo: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
   },
   avatar: {
@@ -187,5 +201,26 @@ const styles = StyleSheet.create({
   botaoCancelar: {
     backgroundColor: '#777777',
     flex: 1,
+  },
+  configContainer: {
+    width: '100%',
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderRadius: 12,
+    marginTop: 20,
+    borderWidth: 1,
+  },
+  configTitulo: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  configLinha: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  configTexto: {
+    fontSize: 16,
   },
 });
