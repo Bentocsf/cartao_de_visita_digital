@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,7 @@ export default function App() {
   const [bioTemporaria, setBioTemporaria] = useState('');
   const [modalVisivel, setModalVisivel] = useState(false);
   const [receberNotificacoes, setReceberNotificacoes] = useState(false);
+  const [mensagemNotificacao, setMensagemNotificacao] = useState('');
 
   function abrirModal() {
     setBioTemporaria(bio);
@@ -31,6 +32,26 @@ export default function App() {
   function cancelarEdicao() {
     setModalVisivel(false);
   }
+  useEffect(() => {
+    if (!receberNotificacoes) {
+      setMensagemNotificacao('');
+      return;
+    }
+
+    const mensagens = [
+      'Aqui está a notificação!',
+      'Levante um pouco!',
+      'Beba água!',
+      'Hora de descansar!',
+    ];
+
+    const intervalo = setInterval(() => {
+      const indiceAleatorio = Math.floor(Math.random() * mensagens.length);
+      setMensagemNotificacao(mensagens[indiceAleatorio]);
+    }, 5000);
+
+    return () => clearInterval(intervalo);
+  }, [receberNotificacoes]);
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -66,8 +87,16 @@ export default function App() {
                 onValueChange={setReceberNotificacoes}
               />
             </View>
+            
           </View>
         </ScrollView>
+        {mensagemNotificacao !== '' && (
+    <View style={styles.notificacaoContainer}>
+      <Text style={styles.notificacaoTexto}>
+        {mensagemNotificacao}
+      </Text>
+    </View>
+  )}
       </SafeAreaView>
       <Modal
         visible={modalVisivel}
@@ -222,5 +251,21 @@ const styles = StyleSheet.create({
   },
   configTexto: {
     fontSize: 16,
+  },
+  notificacaoContainer: {
+  position: 'absolute',
+  bottom: 12,
+  left: 20,
+  right: 20,
+  backgroundColor: '#FFFFFF',
+  padding: 16,
+  borderRadius: 12,
+  borderWidth: 1,
+  elevation: 5,
+},
+  notificacaoTexto: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
