@@ -9,6 +9,7 @@ import {
   TextInput,
   Switch,
   ScrollView,
+  Alert,
 } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -31,6 +32,9 @@ export default function App() {
 
   function cancelarEdicao() {
     setModalVisivel(false);
+  }
+  function salvarDados() {
+    Alert.alert('Dados salvos com sucesso!');
   }
   useEffect(() => {
     if (!receberNotificacoes) {
@@ -87,16 +91,18 @@ export default function App() {
                 onValueChange={setReceberNotificacoes}
               />
             </View>
-            
           </View>
+          <Pressable style={styles.botao} onPress={salvarDados}>
+            <Text style={styles.botaoTexto}>Salvar</Text>
+          </Pressable>
         </ScrollView>
         {mensagemNotificacao !== '' && (
-    <View style={styles.notificacaoContainer}>
-      <Text style={styles.notificacaoTexto}>
-        {mensagemNotificacao}
-      </Text>
-    </View>
-  )}
+          <View style={styles.notificacaoContainer}>
+            <Text style={styles.notificacaoTexto}>
+              {mensagemNotificacao}
+            </Text>
+          </View>
+        )}
       </SafeAreaView>
       <Modal
         visible={modalVisivel}
@@ -143,6 +149,7 @@ const styles = StyleSheet.create({
   conteudo: {
     alignItems: 'center',
     padding: 20,
+    paddingBottom: 100,
   },
   avatar: {
     width: 100,
@@ -253,16 +260,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   notificacaoContainer: {
-  position: 'absolute',
-  bottom: 12,
-  left: 20,
-  right: 20,
-  backgroundColor: '#FFFFFF',
-  padding: 16,
-  borderRadius: 12,
-  borderWidth: 1,
-  elevation: 5,
-},
+    position: 'absolute',
+    bottom: 12,
+    left: 20,
+    right: 20,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    elevation: 5,
+  },
   notificacaoTexto: {
     fontSize: 16,
     textAlign: 'center',
