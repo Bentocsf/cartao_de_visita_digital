@@ -92,7 +92,7 @@ export default function App() {
               />
             </View>
           </View>
-          <Pressable style={styles.botao} onPress={salvarDados}>
+          <Pressable style={styles.botaoSalvar} onPress={salvarDados}>
             <Text style={styles.botaoTexto}>Salvar</Text>
           </Pressable>
         </ScrollView>
@@ -156,6 +156,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 50,
     marginBottom: 16,
+    borderWidth: 2,
   },
   nome: {
     fontSize: 24,
@@ -274,5 +275,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     fontWeight: 'bold',
+  },
+  botaoSalvar: {
+    backgroundColor: '#2878B5',
+    paddingVertical: 12,
+    paddingHorizontal: 18,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 16,
+    width: '100%',
   },
 });
